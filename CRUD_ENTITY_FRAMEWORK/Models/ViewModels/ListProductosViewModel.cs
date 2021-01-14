@@ -7,5 +7,6 @@ namespace CRUD_ENTITY_FRAMEWORK.Models.ViewModels
 {
     public class ListProductosViewModel
     {
+        public int Id{ get}
     }
 }
