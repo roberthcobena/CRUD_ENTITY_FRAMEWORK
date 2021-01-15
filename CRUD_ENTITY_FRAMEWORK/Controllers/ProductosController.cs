@@ -30,5 +30,28 @@ namespace CRUD_ENTITY_FRAMEWORK.Controllers
             }
             return View(lst);
         }
+
+        public ActionResult Nuevo()
+        {
+            return View();
+        }
+
+        //recarga de métodos
+        [HttpPost]
+        public ActionResult Nuevo(ProductoViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (CRUD_ENTITY_FRAMEWORK)
+                }
+
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }
