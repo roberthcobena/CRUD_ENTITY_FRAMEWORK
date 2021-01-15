@@ -1,14 +1,15 @@
 ﻿@model CRUD_ENTITY_FRAMEWORK.Models.ViewModels.ProductoViewModel
 @{
-    ViewBag.Title = "Nuevo";
+    ViewBag.Title = "Editar";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Nuevo", "Productos", FormMethod.Post))
+@using (Html.BeginForm("Editar", "Productos", FormMethod.Post))
 {
     <div class="row">
         <div class="col-md-12">
+            @Html.HiddenFor(d=>d.Id)
             <div>
                 @Html.LabelFor(d => d.Nombre)
                 @Html.TextBoxFor(d => d.Nombre, "", new { @class = "form-control" })
@@ -26,6 +27,8 @@
                 @Html.TextBoxFor(d => d.Marca, "", new { @class = "form-control" })
                 @Html.ValidationMessageFor(d => d.Marca, null, new { @class = "red" })
             </div>
+
+            
 
             <br />
             <div style="text-align:right">

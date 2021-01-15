@@ -148,6 +148,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BD.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MostrarProductos_Result.cs">
+      <DependentUpon>BD.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Productos.cs">
       <DependentUpon>BD.tt</DependentUpon>
     </Compile>
@@ -313,6 +316,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Productos\Nuevo.cshtml" />
+    <Content Include="Views\Productos\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

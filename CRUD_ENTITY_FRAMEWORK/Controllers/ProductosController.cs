@@ -23,9 +23,7 @@ namespace CRUD_ENTITY_FRAMEWORK.Controllers
                                Id = d.Id,
                                Nombre = d.Nombre,
                                Descripcion = d.Descripcion,
-                               Marca = d.Marca,
-                               Precio = (double)d.Precio,
-                               Stock = (int)d.Stock
+                               Marca = d.Marca
                            }).ToList();
             }
             return View(lst);
@@ -44,13 +42,86 @@ namespace CRUD_ENTITY_FRAMEWORK.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    using (CRUD_ENTITY_FRAMEWORK)
+                    using (PracticaEntities db = new PracticaEntities())
+                    {
+                        var oProductos = new Productos();
+                        oProductos.Nombre = model.Nombre;
+                        oProductos.Descripcion= model.Descripcion;
+                        oProductos.Marca = model.Marca;
+
+                        db.Productos.Add(oProductos);
+                        db.SaveChanges();
+                    }
+
+                    return Redirect("~/Productos/");
                 }
 
-            }catch (Exception ex)
+                return View(model);
+
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+
+        }
+
+        public ActionResult Editar(int Id)
+        {
+            ProductoViewModel model = new ProductoViewModel();
+
+            using (PracticaEntities db = new PracticaEntities())
+            {
+                var oProducto = db.Productos.Find(Id);
+                model.Nombre = oProducto.Nombre;
+                model.Descripcion = oProducto.Descripcion;
+                model.Marca = oProducto.Marca;
+            }
+                return View(model);
+        }
+
+        //recarga de métodos
+        [HttpPost]
+        public ActionResult Editar(ProductoViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    using (PracticaEntities db = new PracticaEntities())
+                    {
+                        var oProductos = db.Productos.Find(model.Id);
+                        oProductos.Nombre = model.Nombre;
+                        oProductos.Descripcion = model.Descripcion;
+                        oProductos.Marca = model.Marca;
+
+                        db.Entry(oProductos).State=System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+                    return Redirect("~/Productos/");
+                }
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public ActionResult Eliminar(int Id)
+        {
+
+            using (PracticaEntities db = new PracticaEntities())
+            {
+                var oProducto = db.Productos.Find(Id);
+                db.Productos.Remove(oProducto);
+                db.SaveChanges();
+            }
+            return Redirect("~/Productos/");
 
         }
     }

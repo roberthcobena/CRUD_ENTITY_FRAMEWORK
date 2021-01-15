@@ -13,5 +13,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="EditarProductos" FunctionName="PracticaModel.Store.EditarProductos" />
+    <FunctionImportMapping FunctionImportName="EliminarProducto" FunctionName="PracticaModel.Store.EliminarProducto" />
+    <FunctionImportMapping FunctionImportName="InsertarProductos" FunctionName="PracticaModel.Store.InsertarProductos" />
+    <FunctionImportMapping FunctionImportName="InsetarProductos" FunctionName="PracticaModel.Store.InsetarProductos" />
+    <FunctionImportMapping FunctionImportName="MostrarProductos" FunctionName="PracticaModel.Store.MostrarProductos">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PracticaModel.MostrarProductos_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Stock" ColumnName="Stock" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -12,6 +12,8 @@ namespace CRUD_ENTITY_FRAMEWORK.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PracticaEntities : DbContext
     {
@@ -26,5 +28,98 @@ namespace CRUD_ENTITY_FRAMEWORK.Models
         }
     
         public virtual DbSet<Productos> Productos { get; set; }
+    
+        public virtual int EditarProductos(string nombre, string descrip, string marca, Nullable<double> precio, Nullable<int> stock, Nullable<int> id)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var descripParameter = descrip != null ?
+                new ObjectParameter("descrip", descrip) :
+                new ObjectParameter("descrip", typeof(string));
+    
+            var marcaParameter = marca != null ?
+                new ObjectParameter("marca", marca) :
+                new ObjectParameter("marca", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("precio", precio) :
+                new ObjectParameter("precio", typeof(double));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("stock", stock) :
+                new ObjectParameter("stock", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EditarProductos", nombreParameter, descripParameter, marcaParameter, precioParameter, stockParameter, idParameter);
+        }
+    
+        public virtual int EliminarProducto(Nullable<int> idpro)
+        {
+            var idproParameter = idpro.HasValue ?
+                new ObjectParameter("idpro", idpro) :
+                new ObjectParameter("idpro", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarProducto", idproParameter);
+        }
+    
+        public virtual int InsertarProductos(string nombre, string descrip, string marca, Nullable<double> precio, Nullable<int> stock)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var descripParameter = descrip != null ?
+                new ObjectParameter("descrip", descrip) :
+                new ObjectParameter("descrip", typeof(string));
+    
+            var marcaParameter = marca != null ?
+                new ObjectParameter("marca", marca) :
+                new ObjectParameter("marca", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("precio", precio) :
+                new ObjectParameter("precio", typeof(double));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("stock", stock) :
+                new ObjectParameter("stock", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertarProductos", nombreParameter, descripParameter, marcaParameter, precioParameter, stockParameter);
+        }
+    
+        public virtual int InsetarProductos(string nombre, string descrip, string marca, Nullable<double> precio, Nullable<int> stock)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("nombre", nombre) :
+                new ObjectParameter("nombre", typeof(string));
+    
+            var descripParameter = descrip != null ?
+                new ObjectParameter("descrip", descrip) :
+                new ObjectParameter("descrip", typeof(string));
+    
+            var marcaParameter = marca != null ?
+                new ObjectParameter("marca", marca) :
+                new ObjectParameter("marca", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("precio", precio) :
+                new ObjectParameter("precio", typeof(double));
+    
+            var stockParameter = stock.HasValue ?
+                new ObjectParameter("stock", stock) :
+                new ObjectParameter("stock", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsetarProductos", nombreParameter, descripParameter, marcaParameter, precioParameter, stockParameter);
+        }
+    
+        public virtual ObjectResult<MostrarProductos_Result> MostrarProductos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostrarProductos_Result>("MostrarProductos");
+        }
     }
 }
